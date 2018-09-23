@@ -1,0 +1,8 @@
+name: OwnPlace
+main: pl.karczmarczyk.ownplace.OwnPlace
+version: 1.0
+author: Mati
+commands:
+    own_place:
+        description: past /own_place help
+        usage: /<command> [options]
