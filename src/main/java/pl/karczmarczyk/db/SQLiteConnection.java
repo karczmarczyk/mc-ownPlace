@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import lib.PatPeter.SQLibrary.SQLite;
 import org.bukkit.Location;
 import pl.karczmarczyk.ownplace.OwnPlace;
+import pl.karczmarczyk.utils.PlotUtils;
 
 /**
  *
@@ -54,9 +55,14 @@ public class SQLiteConnection {
             debugLog("own_doors has been created");
         }
         if (!sqlite.checkTable("own_door_to_player")) {
-            String sql = "CREATE TABLE own_door_to_player (id INTEGER PRIMARY KEY AUTOINCREMENT, door_id, player VARCHAR(50));";
+            String sql = "CREATE TABLE own_door_to_player (id INTEGER PRIMARY KEY AUTOINCREMENT, door_id int, player VARCHAR(50));";
             query(sql);
             debugLog("own_door_to_player has been created");
+        }
+        if (!sqlite.checkTable("own_plots")) {
+            String sql = "CREATE TABLE own_plots (id INTEGER PRIMARY KEY AUTOINCREMENT, x1 int, z1 int, x2 int, z2 int, area int, owner VARCHAR(50));";
+            query(sql);
+            debugLog("own_plots has been created");
         }
     }
     
@@ -180,5 +186,29 @@ public class SQLiteConnection {
     public void unshareObj(int doorId) {
         String sql = "DELETE FROM own_door_to_player WHERE door_id="+doorId+";";
         query(sql);
+    }
+    
+    public void addPlot(Location location1, Location location2, String userUuid) {
+        int x1 = new Double(location1.getX()).intValue();
+        int z1 = new Double(location1.getZ()).intValue();
+        int x2 = new Double(location2.getX()).intValue();
+        int z2 = new Double(location2.getZ()).intValue();
+        addPlot(x1, z1, x2, z2, userUuid);
+    }
+    
+    public void addPlot (int x1, int z1, int x2, int z2, String userUuid) {
+        int area = PlotUtils.calcField(x1, z1, x2, z2);
+        String sql = "INSERT INTO own_plots (x1, z1, x2, z2, area, owner) VALUES("+x1+", "+z1+", "+x2+", "+z2+", "+area+", '"+userUuid+"');";
+        query(sql);
+    }
+    
+    public void removePlot (int plotId, String userUuid) {
+        String sql = "DELETE FROM own_plots WHERE id="+plotId+" AND owner='"+userUuid+"';";
+        query(sql);
+    }
+    
+    public ResultSet getPlots () {
+        String sql = "SELECT * FROM own_plots;";
+        return query(sql);
     }
 }
