@@ -20,6 +20,10 @@ public class CommandFactory {
         classes.put("remove_door", new RemoveDoorCommand());
         classes.put("share_door", new ShareDoorCommand());
         classes.put("unshare_door", new UnshareDoorCommand());
+        classes.put("add_plot", new AddPlotCommand());
+//        classes.put("remove_plot", );
+//        classes.put("my_plots", );
+//        classes.put("accept_plot", );
         // REMEMBER: to update HelpCommand
         return classes;
     }

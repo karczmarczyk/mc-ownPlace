@@ -60,7 +60,7 @@ public class SQLiteConnection {
             debugLog("own_door_to_player has been created");
         }
         if (!sqlite.checkTable("own_plots")) {
-            String sql = "CREATE TABLE own_plots (id INTEGER PRIMARY KEY AUTOINCREMENT, x1 int, z1 int, x2 int, z2 int, area int, owner VARCHAR(50));";
+            String sql = "CREATE TABLE own_plots (id INTEGER PRIMARY KEY AUTOINCREMENT, x1 int, z1 int, x2 int, z2 int, area int, owner VARCHAR(50), description text);";
             query(sql);
             debugLog("own_plots has been created");
         }
@@ -188,17 +188,17 @@ public class SQLiteConnection {
         query(sql);
     }
     
-    public void addPlot(Location location1, Location location2, String userUuid) {
+    public void addPlot(Location location1, Location location2, String userUuid, int isActive, String description) {
         int x1 = new Double(location1.getX()).intValue();
         int z1 = new Double(location1.getZ()).intValue();
         int x2 = new Double(location2.getX()).intValue();
         int z2 = new Double(location2.getZ()).intValue();
-        addPlot(x1, z1, x2, z2, userUuid);
+        addPlot(x1, z1, x2, z2, userUuid, isActive, description);
     }
     
-    public void addPlot (int x1, int z1, int x2, int z2, String userUuid) {
+    public void addPlot (int x1, int z1, int x2, int z2, String userUuid, int isActive, String description) {
         int area = PlotUtils.calcField(x1, z1, x2, z2);
-        String sql = "INSERT INTO own_plots (x1, z1, x2, z2, area, owner) VALUES("+x1+", "+z1+", "+x2+", "+z2+", "+area+", '"+userUuid+"');";
+        String sql = "INSERT INTO own_plots (x1, z1, x2, z2, area, owner, is_active, description) VALUES("+x1+", "+z1+", "+x2+", "+z2+", "+area+", '"+userUuid+"', "+isActive+", '"+description+"');";
         query(sql);
     }
     

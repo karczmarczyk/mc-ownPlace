@@ -39,15 +39,20 @@ public class CommandBase {
     }
     
     protected String getPlayerUuidByName (String username) {
+        Player player = getPlayerByName(username);
+        return null!=player?player.getUniqueId().toString():null;
+    }
+    
+    protected Player getPlayerByName (String username) {
         try {
             Player player = Bukkit.getPlayer(username);
             if (null==player) {
                 OfflinePlayer offlinePlayer = (Player) Bukkit.getOfflinePlayer(username);
                 if(offlinePlayer.hasPlayedBefore()) {
-                    return offlinePlayer.getUniqueId().toString();
+                    return (Player) offlinePlayer;
                 }
             }
-            return null!=player?player.getUniqueId().toString():null;
+            return player;
         } catch (Exception e) {
             return null;
         }

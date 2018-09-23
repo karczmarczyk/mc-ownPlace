@@ -12,6 +12,8 @@ public class Plot {
     private int z2;
     private int area;
     private String userUuid;
+    private String description;
+    private boolean isActive;
     
     private final int y = 40;
     
@@ -76,6 +78,22 @@ public class Plot {
 
     public void setUserUuid(String userUuid) {
         this.userUuid = userUuid;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
     
     private void iniT() {

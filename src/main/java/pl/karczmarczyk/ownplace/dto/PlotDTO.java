@@ -53,9 +53,22 @@ public class PlotDTO {
     public static List<Plot> getMyPlotsByLocation (int x, int y, int z, String userUuid) {
         List<Plot> results = new ArrayList<Plot>();
         for (Plot plot:getList()) {
+            if (!plot.getIsActive()) {
+                continue;
+            }
             if (null!=userUuid && plot.getUserUuid().equals(userUuid) && plot.contains(x, y, z)) {
                 results.add(plot);
             } else if (null==userUuid && plot.contains(x, y, z)) {
+                results.add(plot);
+            }
+        }
+        return results;
+    }
+    
+    public static List<Plot> getUnactivePlots () {
+        List<Plot> results = new ArrayList<Plot>();
+        for (Plot plot:getList()) {
+            if (!plot.getIsActive()) {
                 results.add(plot);
             }
         }
@@ -71,6 +84,8 @@ public class PlotDTO {
         plot.setZ2(rs.getInt("z2"));
         plot.setArea(rs.getInt("area"));
         plot.setUserUuid(rs.getString("owner"));
+        plot.setDescription(rs.getString("description"));
+        plot.setIsActive(rs.getInt("is_active")==1?true:false);
         getList().add(plot);
     }
 }
