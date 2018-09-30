@@ -22,7 +22,7 @@ public class MyPlotsCommand extends CommandBase implements CommandInterface {
         List<Plot> list = plugin.getPlotDTO().getMyPlots(player.getUniqueId().toString());
         int i = 1;
         for (Plot plot:list) {
-            sender.sendMessage(i+". ID:"+plot.getId()+" (P1 - P2: "+plot.getX1()+" / "+plot.getZ1()+" - "+plot.getX2()+" / "+plot.getZ2());
+            sender.sendMessage(i+". ID:"+plot.getId()+" (P1 - P2: "+plot.getX1()+"/"+plot.getZ1()+" - "+plot.getX2()+"/"+plot.getZ2()+")");
             i++;
         }
     }

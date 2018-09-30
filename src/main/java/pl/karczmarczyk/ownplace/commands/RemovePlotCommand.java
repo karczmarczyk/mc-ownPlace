@@ -13,7 +13,7 @@ public class RemovePlotCommand extends CommandBase implements CommandInterface {
 
     @Override
     public Boolean check() {
-        if (args.length < 3) {
+        if (args.length < 2) {
             this.validMessage = "command: \\own_place remove_plot {ID}";
             return false;
         }

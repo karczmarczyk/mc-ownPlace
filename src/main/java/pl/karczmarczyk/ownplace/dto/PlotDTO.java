@@ -22,6 +22,8 @@ public class PlotDTO {
     }
     
     public static void updateList (ResultSet rs) {
+        System.out.println("before update: "+getList().size());
+        System.out.println("updateList");
         getList().clear();
         try {
             while (rs.next()) {
@@ -30,6 +32,7 @@ public class PlotDTO {
         } catch (SQLException ex) {
             Logger.getLogger(PlotDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("after update: "+getList().size());
     }
     
     public static List<Plot> getMyPlotsByLocation (Location location, String userUuid) {
@@ -62,6 +65,8 @@ public class PlotDTO {
                 results.add(plot);
             }
         }
+        System.out.println("All plots on list: "+getList().size());
+        System.out.println("Selected plots list: "+results.size());
         return results;
     }
     
@@ -100,5 +105,6 @@ public class PlotDTO {
         plot.setDescription(rs.getString("description"));
         plot.setIsActive(rs.getInt("is_active")==1?true:false);
         getList().add(plot);
+        System.out.print(plot.toString());
     }
 }

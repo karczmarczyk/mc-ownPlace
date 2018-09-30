@@ -60,7 +60,7 @@ public class SQLiteConnection {
             debugLog("own_door_to_player has been created");
         }
         if (!sqlite.checkTable("own_plots")) {
-            String sql = "CREATE TABLE own_plots (id INTEGER PRIMARY KEY AUTOINCREMENT, x1 int, z1 int, x2 int, z2 int, area int, owner VARCHAR(50), description text);";
+            String sql = "CREATE TABLE own_plots (id INTEGER PRIMARY KEY AUTOINCREMENT, x1 int, z1 int, x2 int, z2 int, area int, owner VARCHAR(50), is_active int, description text);";
             query(sql);
             debugLog("own_plots has been created");
         }
@@ -225,7 +225,7 @@ public class SQLiteConnection {
     }
     
     public void acceptPlot (int objId) {
-        String sql = "UPDATE own_plots SET (is_active=1) WHERE id="+objId+";";
+        String sql = "UPDATE own_plots SET is_active=1 WHERE id="+objId+";";
         query(sql);
     }
 }

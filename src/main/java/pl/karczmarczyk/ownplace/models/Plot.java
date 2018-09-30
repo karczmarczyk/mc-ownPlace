@@ -100,15 +100,31 @@ public class Plot {
         if (x1<x2) {
             Tx[0] = x1;
             Tx[1] = x2;
+        }else{
+            Tx[0] = x2;
+            Tx[1] = x1;
         }
         if (z1<z2) {
             Tz[0] = z1;
             Tz[1] = z2;
+        }else{
+            Tz[0] = z2;
+            Tz[1] = z1;
         }
     }
     
     public boolean contains (int x0, int y0, int z0) {
         iniT();
+        String tmp = "";
+        tmp+= "y:"+y+";";
+        tmp+= "y0:"+y0+";";
+        tmp+= "x1:"+Tx[0]+";";
+        tmp+= "x2:"+Tx[1]+";";
+        tmp+= "x0:"+x0+";";
+        tmp+= "z1:"+Tz[0]+";";
+        tmp+= "z2:"+Tz[1]+";";
+        tmp+= "z0:"+z0+";";
+        System.out.println (tmp);        
         if (y0>y
             && Tx[0]<=x0 && x0<=Tx[1] 
             && Tz[0]<=z0 && z0<=Tz[1]) {
@@ -116,4 +132,17 @@ public class Plot {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "PLOT:\nID:"+getId()
+            +"\nx1:"+getX1()
+            +"\nx2:"+getX2()
+            +"\nz1:"+getZ1()
+            +"\nz2:"+getZ2()
+            +"\nUserUuid:"+getUserUuid()
+            +"\nActive:"+getIsActive();
+    }
+    
+    
 }
