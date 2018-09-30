@@ -65,6 +65,19 @@ public class PlotDTO {
         return results;
     }
     
+    public static List<Plot> getMyPlots(String userUuid) {
+        List<Plot> results = new ArrayList<Plot>();
+        for (Plot plot:getList()) {
+            if (!plot.getIsActive()) {
+                continue;
+            }
+            if (null!=userUuid && plot.getUserUuid().equals(userUuid)) {
+                results.add(plot);
+            }
+        }
+        return results;
+    }
+    
     public static List<Plot> getUnactivePlots () {
         List<Plot> results = new ArrayList<Plot>();
         for (Plot plot:getList()) {

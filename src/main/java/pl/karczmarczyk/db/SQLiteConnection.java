@@ -207,8 +207,25 @@ public class SQLiteConnection {
         query(sql);
     }
     
+    public void removePlot (int plotId) {
+        String sql = "DELETE FROM own_plots WHERE id="+plotId+";";
+        query(sql);
+    }
+    
+    public ResultSet getPlot (int objId, String userUuid) {
+        ResultSet result = null;
+        String sql = "SELECT * FROM own_plots WHERE id="+objId+" AND owner='"+userUuid+"';";
+        result = query(sql);
+        return result;
+    }
+    
     public ResultSet getPlots () {
         String sql = "SELECT * FROM own_plots;";
         return query(sql);
+    }
+    
+    public void acceptPlot (int objId) {
+        String sql = "UPDATE own_plots SET (is_active=1) WHERE id="+objId+";";
+        query(sql);
     }
 }
